@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "sass": "^1.83.4",
     "web-vitals": "^4.2.4"
   }
 }
