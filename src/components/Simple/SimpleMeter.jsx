@@ -35,10 +35,14 @@ const SimpleMeter = ({
         meterValue += 'px'
     }
 
-    console.log(meterValue.toString().length)
+    let sliceValuePost = filterStringIndex+meterName.length+meterValue.toString().length+2
+
+    if(typeof meterValue === Number && meterValue < 10 || parseInt(meterValue?.replace(/\D/g, '')) < 10) {
+        sliceValuePost++
+    }
 
     if(filterStringIndex > -1){
-        return imageStyles.filter.slice(0 , filterStringIndex) + `${meterName}(${meterValue})` + imageStyles.filter.slice(filterStringIndex+meterName.length+meterValue.toString().length+2)
+        return imageStyles.filter.slice(0 , filterStringIndex) + `${meterName}(${meterValue})` + imageStyles.filter.slice(sliceValuePost)
     }
    
     return imageStyles.filter === undefined ? `${meterName}(${meterValue})` : imageStyles.filter + ` ${meterName}(${meterValue})`
