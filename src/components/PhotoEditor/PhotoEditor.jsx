@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import SimpleMeter from "../Simple/SimpleMeter";
+import { filterValues } from "../../utils/utils";
 import "./photoeditor.scss";
 
 const PhotoEditor = () => {
@@ -58,7 +59,7 @@ const PhotoEditor = () => {
     setIsDragging(true);
   };
 
-  console.log(imageStyles);
+  console.log(imageStyles)
 
   return (
     <div className="main-content">
@@ -72,8 +73,6 @@ const PhotoEditor = () => {
           alt="Upload your image here"
         />
         <input type="file" accept="image/*" onChange={imageHandler} />
-        <meter />
-
         <div className="meter" ref={meterRef}>
           <div
             className="draggable-button"
@@ -84,12 +83,22 @@ const PhotoEditor = () => {
         </div>
       </div>
 
-      <SimpleMeter
-        initialValue={100}
-        meterName={"opacity"}
-        setImageStyles={setImageStyles}
-        imageStyles={imageStyles}
-      />
+      <div className="adjust-settings">
+        {filterValues?.map(item => {
+          let initialValue = 100;
+
+          if(item !== 'opacity'){
+            initialValue = 0
+          }
+          return <SimpleMeter 
+            key={item}
+            initialValue={initialValue}
+            meterName={item}
+            setImageStyles={setImageStyles}
+            imageStyles={imageStyles}
+          />
+        })}
+      </div>
     </div>
   );
 };

@@ -28,13 +28,21 @@ const SimpleMeter = ({
     if(meterName === commonConstants.opacity){
         meterValue = (meterValue * 0.01).toFixed(1)
     }
+    else if(meterName === commonConstants.brightness){
+        meterValue = (meterValue * 2 * 0.01).toFixed(1)
+    }
+    else if(meterName === commonConstants.blur){
+        meterValue += 'px'
+    }
+
+    console.log(meterValue.toString().length)
 
     if(filterStringIndex > -1){
         return imageStyles.filter.slice(0 , filterStringIndex) + `${meterName}(${meterValue})` + imageStyles.filter.slice(filterStringIndex+meterName.length+meterValue.toString().length+2)
     }
-    else {
-        return `${meterName}(${meterValue})`
-    }
+   
+    return imageStyles.filter === undefined ? `${meterName}(${meterValue})` : imageStyles.filter + ` ${meterName}(${meterValue})`
+    
 
   }
 
@@ -47,8 +55,9 @@ const SimpleMeter = ({
 
       newValue = Math.max(0, Math.min(100, newValue)); // Clamp to 0-100
       setImageStyles({
-        filter: setFilter(meterName , newValue),
-      });
+        ...imageStyles,
+        filter: setFilter(meterName , newValue)
+    });
       setValue(newValue);
     }
   };
@@ -67,7 +76,8 @@ const SimpleMeter = ({
     let newValue = Math.round((newPosition / trackRect.width) * 100);
     newValue = Math.max(0, Math.min(100, newValue));
     setImageStyles({
-      filter: setFilter(meterName , newValue),
+        ...imageStyles,
+        filter: setFilter(meterName , newValue)
     });
     setValue(newValue);
   };
