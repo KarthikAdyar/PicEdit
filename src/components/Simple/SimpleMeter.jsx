@@ -22,32 +22,50 @@ const SimpleMeter = ({
     setIsDragging(true);
   };
 
-  const setFilter = (meterName , meterValue) => {
+  const setFilter = (meterName , meterValue , oldValue) => {
     const filterStringIndex = imageStyles.filter?.indexOf(meterName)
 
-    if(meterName === commonConstants.opacity){
-        meterValue = (meterValue * 0.01).toFixed(1)
-    }
-    else if(meterName === commonConstants.brightness){
-        meterValue = (meterValue * 2 * 0.01).toFixed(1)
-    }
-    else if(meterName === commonConstants.blur){
-        meterValue += 'px'
-    }
+    let offsetValueForSlice = oldValue?.toString().length - meterValue?.toString().length
+    let isGreater = meterValue?.toString().length > oldValue?.toString().length
 
-    let sliceValuePost = filterStringIndex+meterName.length+meterValue.toString().length+2
-
-    if(typeof meterValue === Number && meterValue < 10 || parseInt(meterValue?.replace(/\D/g, '')) < 10) {
-        sliceValuePost++
-    }
-
-    if(filterStringIndex > -1){
-        return imageStyles.filter.slice(0 , filterStringIndex) + `${meterName}(${meterValue})` + imageStyles.filter.slice(sliceValuePost)
+    if(meterName === commonConstants.contrast){
+      isGreater = (meterValue*2)?.toString().length > (oldValue*2)?.toString().length
     }
    
-    return imageStyles.filter === undefined ? `${meterName}(${meterValue})` : imageStyles.filter + ` ${meterName}(${meterValue})`
-    
+    if(meterName === commonConstants.opacity || meterName === commonConstants.invert){
+        meterValue = `(${(meterValue * 0.01).toFixed(1)})`
+    }
+    else if(meterName === commonConstants.brightness){
+        meterValue = `(${(meterValue * 2 * 0.01).toFixed(1)})`
+    }
+    else if(meterName === commonConstants.blur){
+        meterValue = `(${meterValue}px)`
+    } 
+    else if(meterName === commonConstants.grayscale || meterName === commonConstants.saturate || meterName === commonConstants.sepia){
+      meterValue = `(${meterValue}%)`
+    }
+    else if(meterName === commonConstants.hueRotate){
+      meterValue = `(${meterValue}deg)`
+    }
+    else if(meterName === commonConstants.contrast){
+      meterValue = `(${2* meterValue}%)`
+    }
 
+    let sliceValuePost = filterStringIndex + meterName.length+meterValue.toString().length + offsetValueForSlice
+
+    if(imageStyles.filter?.[sliceValuePost] === ')'){
+      sliceValuePost++;
+    }
+
+    if(isGreater && commonConstants.contrast){
+      sliceValuePost = sliceValuePost -  offsetValueForSlice - 1
+    }
+   
+    if(filterStringIndex > -1){
+        return imageStyles.filter.slice(0 , filterStringIndex) + `${meterName}${meterValue}${isGreater ? " ":''}` + imageStyles.filter.slice(sliceValuePost)
+    }
+   
+    return imageStyles.filter === undefined ? `${meterName}${meterValue}` : imageStyles.filter + ` ${meterName}${meterValue}`
   }
 
   const handleMouseMove = (e) => {
@@ -60,7 +78,7 @@ const SimpleMeter = ({
       newValue = Math.max(0, Math.min(100, newValue)); // Clamp to 0-100
       setImageStyles({
         ...imageStyles,
-        filter: setFilter(meterName , newValue)
+        filter: setFilter(meterName , newValue , value)
     });
       setValue(newValue);
     }
@@ -81,7 +99,7 @@ const SimpleMeter = ({
     newValue = Math.max(0, Math.min(100, newValue));
     setImageStyles({
         ...imageStyles,
-        filter: setFilter(meterName , newValue)
+        filter: setFilter(meterName , newValue , value)
     });
     setValue(newValue);
   };
