@@ -7,10 +7,12 @@ const SimpleMeter = ({
   meterName,
   setImageStyles,
   imageStyles,
+  meterSize
 }) => {
   const [value, setValue] = useState(initialValue);
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
+  
 
   useEffect(() => {
     if (onChange) {
@@ -71,11 +73,11 @@ const SimpleMeter = ({
   const handleMouseMove = (e) => {
     if (isDragging) {
       const trackRect = trackRef.current.getBoundingClientRect();
-      const newPosition = e.clientX - trackRect.left; // Directly use clientX
+      const newPosition = e.clientX - trackRect.left; 
 
-      let newValue = Math.round((newPosition / trackRect.width) * 100); // 0-100 range
+      let newValue = Math.round((newPosition / trackRect.width) * 100); 
 
-      newValue = Math.max(0, Math.min(100, newValue)); // Clamp to 0-100
+      newValue = Math.max(0, Math.min(100, newValue));
       setImageStyles({
         ...imageStyles,
         filter: setFilter(meterName , newValue , value)
@@ -107,10 +109,10 @@ const SimpleMeter = ({
   const meterStyle = {
     position: "absolute",
     top: "50%",
-    left: `${value}%`, // Directly use percentage
-    transform: "translateX(-50%) translateY(-50%)", // Center
-    width: "20px", // Smaller meter
-    height: "20px",
+    left: `${value}%`,
+    transform: "translateX(-50%) translateY(-50%)",
+    width: "40px",
+    height: "40px",
     borderRadius: "50%",
     backgroundColor: "blue",
     cursor: "grab",
@@ -118,10 +120,9 @@ const SimpleMeter = ({
 
   const trackStyle = {
     position: "relative",
-    width: "200px",
-    height: "10px",
+    height: "30px",
     backgroundColor: "lightgray",
-    borderRadius: "5px",
+    borderRadius: "40px",
     cursor: "grab",
   };
 
@@ -131,8 +132,8 @@ const SimpleMeter = ({
     left: 0,
     height: "100%",
     width: `${value}%`,
-    backgroundColor: "green",
-    borderRadius: "5px",
+    backgroundColor: "blue",
+    borderRadius: "40px",
   };
 
   return (

@@ -6,15 +6,15 @@ import "./photoeditor.scss";
 const PhotoEditor = () => {
   const [image, setImage] = useState(null);
   const [imageStyles, setImageStyles] = useState({});
+  const [value, setValue] = useState(0);
+  const meterRef = useRef(null);
+  const buttonRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const imageHandler = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const [value, setValue] = useState(0);
-  const meterRef = useRef(null);
-  const buttonRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -59,19 +59,20 @@ const PhotoEditor = () => {
     setIsDragging(true);
   };
 
-  console.log(imageStyles)
-
   return (
     <div className="main-content">
       <h1 className="title">Photo Editor</h1>
       <div className="image-container">
-        <img
-          style={imageStyles}
-          src={image}
-          width="500"
-          height="500"
-          alt="Upload your image here"
-        />
+        {!image ? 
+         <p>Please Upload the image</p>: 
+         <img
+         style={imageStyles}
+         src={image}
+         width="500"
+         height="500"
+         alt="Upload your image here"
+       />
+         }
         <input type="file" accept="image/*" onChange={imageHandler} />
         <div className="meter" ref={meterRef}>
           <div
@@ -83,7 +84,7 @@ const PhotoEditor = () => {
         </div>
       </div>
 
-      <div className="adjust-settings">
+      {image ? <div className="adjust-settings">
         {filterValues?.map(item => {
           let initialValue = 100;
 
@@ -98,7 +99,7 @@ const PhotoEditor = () => {
             imageStyles={imageStyles}
           />
         })}
-      </div>
+      </div> : <></>}
     </div>
   );
 };

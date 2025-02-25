@@ -1,14 +1,12 @@
 .main-content {
-    width: 100%;
+    width: 50%;
     max-width: 500px;
-    margin: 100px auto;
     text-align: center;
+    margin: 0 auto;
 }
 
 .image-container{
     border: 1px solid black;
-  
-
     img{
         height:300px;
         width: 500px;
@@ -16,7 +14,6 @@
     }
 }
 
-
 .adjust-settings{
-    padding: 10px;
+    margin: 16px 0;
 }
