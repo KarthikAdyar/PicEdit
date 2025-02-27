@@ -43,13 +43,13 @@ const SimpleMeter = ({
     else if(meterName === commonConstants.blur){
         meterValue = `(${meterValue}px)`
     } 
-    else if(meterName === commonConstants.grayscale || meterName === commonConstants.saturate || meterName === commonConstants.sepia){
+    else if(meterName === commonConstants.grayscale  || meterName === commonConstants.sepia){
       meterValue = `(${meterValue}%)`
     }
     else if(meterName === commonConstants.hueRotate){
       meterValue = `(${meterValue}deg)`
     }
-    else if(meterName === commonConstants.contrast){
+    else if(meterName === commonConstants.contrast || meterName === commonConstants.saturate){
       meterValue = `(${2* meterValue}%)`
     }
 
