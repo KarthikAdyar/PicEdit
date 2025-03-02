@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Satisfy&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@mixin mobile-media {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+
 .main-content {
     width: 50%;
     max-width: 500px;
@@ -5,8 +13,31 @@
     margin: 0 auto;
 }
 
-.image-container{
-    border: 1px solid black;
+.title {
+    background: linear-gradient( to right , #fdfad6 , #fad064);
+    padding: 20px;
+    margin:0;
+    text-align: center;
+    font-family: "Satisfy", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.parent {
+    display: grid;
+    grid-template-columns: 69% 29%;
+    gap: 2%;
+
+    @include mobile-media(){
+        grid-template-columns: 100%;
+    }
+}
+    
+.image-container {
+    background-color: #fdfad6;
+    border-radius: 20px;
+
 
     img{
         height: 100%; 
@@ -15,6 +46,8 @@
     }
 }
 
-.adjust-settings{
-    margin: 16px 0;
+.adjust-settings {
+    background-color: #fad064;
+    border-radius: 20px;
 }
+        

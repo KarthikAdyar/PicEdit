@@ -95,10 +95,11 @@ const PhotoEditor = () => {
   }
 
   return (
-    <div className="main-content">
-      <h1 className="title">Photo Editor</h1>
-      <button onClick={saveImage}>Save</button>
-      <input placeholder="Enter the fileName to save" defaultValue={fileName} onChange={changeFileName}/>
+    <>
+     <h1 className="title">
+         Edit Pic Fast
+      </h1>
+    <div class="parent">
       <div className="image-container">
         {!image ? 
          <p>Please Upload the image</p>: 
@@ -121,7 +122,6 @@ const PhotoEditor = () => {
           ></div>
         </div>
       </div>
-
       {image ? <div className="adjust-settings">
         {filterValues?.map(item => {
           let initialValue = 0;
@@ -143,8 +143,10 @@ const PhotoEditor = () => {
             imageStyles={imageStyles}
           />
         })}
+        
       </div> : <></>}
     </div>
+    </>
   );
 };
 
