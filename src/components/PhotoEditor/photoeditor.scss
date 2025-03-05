@@ -13,6 +13,11 @@
     margin: 0 auto;
 }
 
+.upload-image-text {
+    font-size: 32px;
+    font-family: "Satisfy", cursive;
+}
+
 .title {
     background: linear-gradient( to right , #fdfad6 , #fad064);
     padding: 20px;
@@ -21,6 +26,7 @@
     font-family: "Satisfy", cursive;
     font-weight: 400;
     font-style: normal;
+    font-size: 48px;
 }
 
 
@@ -33,7 +39,21 @@
         grid-template-columns: 100%;
     }
 }
-    
+
+.no-image {
+    text-align: center;
+}
+
+.input-styles{
+    font-weight: bold;
+    color: black;
+    background-color: #fad064;
+    padding: 16px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Satisfy", cursive;
+}
+
 .image-container {
     background-color: #fdfad6;
     border-radius: 20px;
@@ -49,5 +69,6 @@
 .adjust-settings {
     background-color: #fad064;
     border-radius: 20px;
+    padding: 32px;
 }
         

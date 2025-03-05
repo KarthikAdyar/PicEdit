@@ -114,7 +114,7 @@ const SimpleMeter = ({
     width: "40px",
     height: "40px",
     borderRadius: "50%",
-    backgroundColor: "blue",
+    backgroundColor: "rgb(38 38 116)",
     cursor: "grab",
   };
 
@@ -132,7 +132,7 @@ const SimpleMeter = ({
     left: 0,
     height: "100%",
     width: `${value}%`,
-    backgroundColor: "blue",
+    backgroundColor: "rgb(38 38 116)",
     borderRadius: "40px",
   };
 

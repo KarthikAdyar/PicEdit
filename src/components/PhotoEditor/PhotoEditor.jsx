@@ -99,10 +99,11 @@ const PhotoEditor = () => {
      <h1 className="title">
          Edit Pic Fast
       </h1>
-    <div class="parent">
-      <div className="image-container">
+      {image ? <label for="files" className="input-styles">Choose File</label>: ''}
+    <div className={image ? "parent": ""}>
+      <div className={image ? "image-container": "no-image"}>
         {!image ? 
-         <p>Please Upload the image</p>: 
+         <h2 className="upload-image-text">Please Upload the image</h2>: 
          <img
          style={imageStyles}
          src={image}
@@ -112,7 +113,8 @@ const PhotoEditor = () => {
          ref={imageRef}
        />
          }
-        <input type="file" accept="image/*" onChange={imageHandler} />
+        <input style={{display:'none'}} type="file" accept="image/*" onChange={imageHandler} id="files" />
+        {!image ? <label htmlFor="files" className="input-styles">Choose File</label> : ''}
         <div className="meter" ref={meterRef}>
           <div
             className="draggable-button"
