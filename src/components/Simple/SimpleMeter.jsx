@@ -6,8 +6,7 @@ const SimpleMeter = ({
   onChange,
   meterName,
   setImageStyles,
-  imageStyles,
-  meterSize
+  imageStyles
 }) => {
   const [value, setValue] = useState(initialValue);
   const [isDragging, setIsDragging] = useState(false);
@@ -90,10 +89,6 @@ const SimpleMeter = ({
     setIsDragging(false);
   };
 
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
   const handleTrackClick = (e) => {
     const trackRect = trackRef.current.getBoundingClientRect();
     const newPosition = e.clientX - trackRect.left;
@@ -105,6 +100,16 @@ const SimpleMeter = ({
     });
     setValue(newValue);
   };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
 
   const meterStyle = {
     position: "absolute",
@@ -145,13 +150,12 @@ const SimpleMeter = ({
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
       >
         <div style={progressStyle}></div>
         <div style={meterStyle} />
       </div>
       <p>
-        {meterName}: {value}
+        <span style={{fontWeight:700}}>{meterName}</span>: {value}
       </p>
     </>
   );

@@ -34,6 +34,7 @@
     display: grid;
     grid-template-columns: 69% 29%;
     gap: 2%;
+    margin-top: 16px;
 
     @include mobile-media(){
         grid-template-columns: 100%;
@@ -54,9 +55,36 @@
     font-family: "Satisfy", cursive;
 }
 
+.save-button{
+    font-weight: bold;
+    color: black;
+    background-color: #fad064;
+    padding: 16px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Satisfy", cursive;
+    font-size: 16px;
+}
+
+.flex-justify{
+    display: flex;
+    justify-content: space-between;
+}
+
+.file-save-input{
+    padding:16px;
+    color: black;
+    background-color: #fad064;
+    margin: 0 5px;
+    outline: none;
+    font-family: "Satisfy", cursive;
+    font-size: 16px;
+}
+
 .image-container {
     background-color: #fdfad6;
     border-radius: 20px;
+    padding: 0 16px;
 
 
     img{
@@ -70,5 +98,8 @@
     background-color: #fad064;
     border-radius: 20px;
     padding: 32px;
+    font-family: "Satisfy", cursive;
+    font-size: 32px;
+    text-transform: capitalize;
 }
         

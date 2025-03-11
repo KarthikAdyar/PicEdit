@@ -67,20 +67,15 @@ const PhotoEditor = () => {
     const image = new Image();
     image.src = imageRef.current.src
     image.onload = () => {
-      // Set canvas size to the image size
       canvas.width = image.width;
       canvas.height = image.height;
 
-      // Apply the filter to the canvas context
       ctx.filter = imageStyles.filter;
 
-      // Draw the image onto the canvas
       ctx.drawImage(image, 0, 0);
 
-      // Convert canvas to a data URL (Base64 image)
       const dataUrl = canvas.toDataURL('image/png');
 
-      // Create a link and trigger the download
       const link = document.createElement('a');
       link.href = dataUrl;
       link.download = `${fileName ? fileName : 'edited-image'}.png`;
@@ -89,9 +84,7 @@ const PhotoEditor = () => {
   }
 
   const changeFileName = (e) => {
-    if(e.target.value){
-      setFileName(e.target.value)
-    }
+    setFileName(e.target.value)
   }
 
   return (
@@ -99,7 +92,15 @@ const PhotoEditor = () => {
      <h1 className="title">
          Edit Pic Fast
       </h1>
-      {image ? <label for="files" className="input-styles">Choose File</label>: ''}
+      {image && <div className="flex-justify">
+        <label htmlFor="files" className="input-styles">Choose File</label>
+        <div>
+          <input type="text" className="file-save-input" placeholder="File Name" value={fileName} onChange={changeFileName}/>
+          <button className="save-button" onClick={saveImage}>Save</button>
+        </div>
+        
+        </div>}
+      
     <div className={image ? "parent": ""}>
       <div className={image ? "image-container": "no-image"}>
         {!image ? 
