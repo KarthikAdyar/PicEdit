@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { commonConstants } from "../../utils/utils";
+import { commonConstants, throttle } from "../../utils/utils";
 
 const SimpleMeter = ({
   initialValue = 0,
@@ -11,7 +11,6 @@ const SimpleMeter = ({
   const [value, setValue] = useState(initialValue);
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
-  
 
   useEffect(() => {
     if (onChange) {
@@ -69,10 +68,18 @@ const SimpleMeter = ({
     return imageStyles.filter === undefined ? `${meterName}${meterValue}` : imageStyles.filter + ` ${meterName}${meterValue}`
   }
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = throttle((e) => {
+    let clientX
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+    } else if (e.clientX) {
+      clientX = e.clientX;
+    } else {
+      return;
+    }
     if (isDragging) {
       const trackRect = trackRef.current.getBoundingClientRect();
-      const newPosition = e.clientX - trackRect.left; 
+      const newPosition = clientX - trackRect.left; 
 
       let newValue = Math.round((newPosition / trackRect.width) * 100); 
 
@@ -83,7 +90,7 @@ const SimpleMeter = ({
     });
       setValue(newValue);
     }
-  };
+  } , 200);
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -150,6 +157,9 @@ const SimpleMeter = ({
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onTouchMove={handleMouseMove}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
       >
         <div style={progressStyle}></div>
         <div style={meterStyle} />
