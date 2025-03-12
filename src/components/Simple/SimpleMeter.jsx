@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { commonConstants, throttle } from "../../utils/utils";
+import { commonConstants } from "../../utils/utils";
 
 const SimpleMeter = ({
   initialValue = 0,
@@ -68,7 +68,7 @@ const SimpleMeter = ({
     return imageStyles.filter === undefined ? `${meterName}${meterValue}` : imageStyles.filter + ` ${meterName}${meterValue}`
   }
 
-  const handleMouseMove = throttle((e) => {
+  const handleMouseMove = (e) => {
     let clientX
     if (e.touches && e.touches.length > 0) {
       clientX = e.touches[0].clientX;
@@ -90,7 +90,7 @@ const SimpleMeter = ({
     });
       setValue(newValue);
     }
-  } , 200);
+  };
 
   const handleMouseUp = () => {
     setIsDragging(false);
