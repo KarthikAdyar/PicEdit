@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { commonConstants } from "../../utils/utils";
 
 const SimpleMeter = ({
@@ -22,7 +22,7 @@ const SimpleMeter = ({
     setIsDragging(true);
   };
 
-  const setFilter = (meterName , meterValue , oldValue) => {
+  const setFilter = useCallback((meterName , meterValue , oldValue) => {
     const filterStringIndex = imageStyles.filter?.indexOf(meterName)
 
     let offsetValueForSlice = oldValue?.toString().length - meterValue?.toString().length
@@ -66,9 +66,9 @@ const SimpleMeter = ({
     }
    
     return imageStyles.filter === undefined ? `${meterName}${meterValue}` : imageStyles.filter + ` ${meterName}${meterValue}`
-  }
+  }, [imageStyles.filter])
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     let clientX
     if (e.touches && e.touches.length > 0) {
       clientX = e.touches[0].clientX;
@@ -90,7 +90,7 @@ const SimpleMeter = ({
     });
       setValue(newValue);
     }
-  };
+  }, [imageStyles, isDragging, meterName, setFilter, setImageStyles, value]);
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -116,7 +116,7 @@ const SimpleMeter = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging ,handleMouseMove]);
 
   const meterStyle = {
     position: "absolute",
