@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/PicEdit/static/css/main.a093ecad.css",
-    "main.js": "/PicEdit/static/js/main.4b78fba4.js",
+    "main.css": "/PicEdit/static/css/main.f673fa9e.css",
+    "main.js": "/PicEdit/static/js/main.47ed9e1b.js",
     "static/js/488.fb7f1a0b.chunk.js": "/PicEdit/static/js/488.fb7f1a0b.chunk.js",
     "index.html": "/PicEdit/index.html",
-    "main.a093ecad.css.map": "/PicEdit/static/css/main.a093ecad.css.map",
-    "main.4b78fba4.js.map": "/PicEdit/static/js/main.4b78fba4.js.map",
+    "main.f673fa9e.css.map": "/PicEdit/static/css/main.f673fa9e.css.map",
+    "main.47ed9e1b.js.map": "/PicEdit/static/js/main.47ed9e1b.js.map",
     "488.fb7f1a0b.chunk.js.map": "/PicEdit/static/js/488.fb7f1a0b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a093ecad.css",
-    "static/js/main.4b78fba4.js"
+    "static/css/main.f673fa9e.css",
+    "static/js/main.47ed9e1b.js"
   ]
 }
